@@ -1,4 +1,4 @@
-# Rock Music Data App
+# Rock Music Analytics App
 
 ### 🎯 Project purpose
 The goal of this [app](https://rock-music-analytics.streamlit.app) is to visualize data on legendary rock artists, making it easy for users to explore and answer questions through interactive data visualizations.
