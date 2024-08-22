@@ -27,7 +27,7 @@ def set_connection_string():
         password = st.secrets["PASSWORD"]
         # set connection string
         connection_string = (
-        'Driver={ODBC Driver 18 for SQL Server};'
+        'Driver={ODBC Driver 17 for SQL Server};'
         'Server=tcp:' + server + ',1433;'
         'Database=' + database + ';'
         'Uid=sqladmin;'
