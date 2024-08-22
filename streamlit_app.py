@@ -30,6 +30,6 @@ about_page=st.Page(
 )
 # --- NAVIGATION SETUP [WITHOUT SECTIONS] ---
 pg = st.navigation(pages=[main_page, artists_page, clustering_page, about_page])
-
+st.session_state.update(st.session_state)
 pg.run()
 
