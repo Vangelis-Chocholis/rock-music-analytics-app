@@ -1,4 +1,5 @@
 import pypyodbc as odbc
+import pyodbc
 from sqlalchemy import create_engine
 from sqlalchemy.pool import StaticPool
 import pandas as pd
@@ -57,7 +58,8 @@ def database_connection(connection_string, max_retries=15, retry_delay=1):
     attempts = 0
     while attempts < max_retries:
         try:
-            conn = odbc.connect(connection_string)
+            #conn = odbc.connect(connection_string)
+            conn = pyodbc.connect(connection_string)
             return conn
         except Exception as e:
             #logging.error(f"An exception occurred: connect with DB failed (Attempt {attempts + 1}/{max_retries})", exc_info=False)
