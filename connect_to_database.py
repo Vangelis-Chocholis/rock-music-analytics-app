@@ -17,8 +17,8 @@ def set_connection_string():
     # load credentials
     try:
         load_dotenv()
-        password = os.getenv("PASSWORD")
-        #password = os.environ["PASSWORD"]
+        #password = os.getenv("PASSWORD")
+        password = os.environ["PASSWORD"]
         # set connection string
         connection_string = (
         'Driver={ODBC Driver 18 for SQL Server};'

@@ -200,7 +200,7 @@ def get_data():
         - track_id
         - original_track_name
         - mode
-        - other columns from the static data tables
+        - other columns from the static dat a tables
         - date_track_popularity_list: A list of tuples containing date and track popularity.
         - track_popularity_list: A list of track popularity values.
         - current_track_popularity: The latest popularity value for each track.
@@ -224,7 +224,15 @@ def get_data():
     # Process the final dataset for artists
     artists_data = process_artists_data(artists_table, artists_popularity, artists_followers) 
     
-    return tracks_data, artists_data
+    # get mean track popularity over time
+    mean_track_popularity_over_time = (tracks_popularity_table
+         .groupby('date')
+         .agg({'track_popularity': 'mean'})
+         .reset_index()
+         .rename(columns={'track_popularity': 'mean_track_popularity'})
+         )
+    
+    return tracks_data, artists_data, mean_track_popularity_over_time
 
 
 ###########################################################
@@ -233,7 +241,14 @@ def get_data():
 def get_data1():
     data = pd.read_pickle('data/data.pkl')
     artists_data = pd.read_pickle('data/artists_data.pkl')
-    return data, artists_data
+    tracks_popularity_table = pd.read_csv('data/tracks_popularity_table.csv')
+    mean_track_popularity= (tracks_popularity_table
+         .groupby('date')
+         .agg({'track_popularity': 'mean'})
+         .reset_index()
+         .rename(columns={'track_popularity': 'mean_track_popularity'})
+         )
+    return data, artists_data, mean_track_popularity
 
 ####################################
 
@@ -248,7 +263,7 @@ def main():
     st.title("🎸 Tracks")
     # get the data
     #Use get_data1() for testing without database, and get_data() for database connection
-    data, artists_data = get_data1()
+    data, artists_data, mean_track_popularity = get_data()
     
     # save the data to pkl to avoid database connection
     #data.to_pickle('data/data.pkl')
@@ -389,6 +404,21 @@ def main():
             )
             # Add the trend line trace to the list
             trend_line_traces.append(trend_line_trace)
+            
+        # Create the trend line trace for the average popularity
+        mean_popularity_trace = go.Scatter(
+        x=mean_track_popularity['date'],
+        y=mean_track_popularity['mean_track_popularity'],
+        mode='lines',  # Ensure that it's in line mode
+        name='mean track popularity',  # Name the trace
+        line=dict(
+            dash='dot',  # Make the line dotted
+            width=2, # Optional: Adjust the width of the line
+            color='orange'
+            )
+        )
+        trend_line_traces.append(mean_popularity_trace)
+            
         # Create the trend line plot layout
         trend_line_layout = go.Layout(
             title = 'Track Popularity Trend',
