@@ -17,11 +17,11 @@ def set_connection_string():
 
     # load credentials
     try:
-        load_dotenv()
+        #load_dotenv()
         # get password locally
         #password = os.getenv("PASSWORD")
         # get password from GitHub secrets
-        #password = os.environ["PASSWORD"]
+        password = os.environ["PASSWORD"]
         # get password from Streamlit secrets
         password = st.secrets("PASSWORD")
         # set connection string
