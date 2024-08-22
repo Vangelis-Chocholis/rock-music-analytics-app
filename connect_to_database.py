@@ -5,6 +5,7 @@ import pandas as pd
 from dotenv import load_dotenv
 import os
 import time
+import streamlit as st
 
 
 
@@ -17,8 +18,12 @@ def set_connection_string():
     # load credentials
     try:
         load_dotenv()
+        # get password locally
         #password = os.getenv("PASSWORD")
-        password = os.environ["PASSWORD"]
+        # get password from GitHub secrets
+        #password = os.environ["PASSWORD"]
+        # get password from Streamlit secrets
+        password = st.secrets("PASSWORD")
         # set connection string
         connection_string = (
         'Driver={ODBC Driver 18 for SQL Server};'
