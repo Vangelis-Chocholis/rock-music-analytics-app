@@ -21,9 +21,9 @@ def set_connection_string():
         # get password locally
         #password = os.getenv("PASSWORD")
         # get password from GitHub secrets
-        password = os.environ["PASSWORD"]
+        #password = os.environ["PASSWORD"]
         # get password from Streamlit secrets
-        #password = st.secrets("PASSWORD")
+        password = st.secrets["PASSWORD"]
         # set connection string
         connection_string = (
         'Driver={ODBC Driver 18 for SQL Server};'
