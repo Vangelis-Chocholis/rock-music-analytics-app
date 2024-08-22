@@ -17,7 +17,7 @@ def set_connection_string():
 
     # load credentials
     try:
-        load_dotenv()
+        #load_dotenv()
         # get password locally
         #password = os.getenv("PASSWORD")
         # get password from GitHub secrets
