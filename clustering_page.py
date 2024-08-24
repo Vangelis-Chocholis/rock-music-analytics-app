@@ -74,11 +74,11 @@ def clustered_data_trend():
     tracks_clustered['cluster'] = tracks_clustered['cluster'].astype(str)
     #tracks_popularity = pd.read_csv('data/tracks_popularity_table.csv')
     try:
-        #if 'cached_tracks_popularity_table' not in st.session_state:
-         #   raise KeyError("cached_tracks_popularity_table not found in session state")
-        #tracks_popularity = st.session_state['cached_tracks_popularity_table']
-        sql = '''SELECT * FROM tracks_popularity_table '''
-        tracks_popularity = load_from_db(sql)
+        if 'cached_tracks_popularity_table' not in st.session_state:
+            raise KeyError("cached_tracks_popularity_table not found in session state")
+        tracks_popularity = st.session_state['cached_tracks_popularity_table']
+        #sql = '''SELECT * FROM tracks_popularity_table '''
+        #tracks_popularity = load_from_db(sql)
         tracks_data = pd.merge(tracks_table, tracks_clustered, on='track_id')
         tracks_data = pd.merge(tracks_data, tracks_popularity, on='track_id')
         # group by date and cluster aggregating the mean popularity
