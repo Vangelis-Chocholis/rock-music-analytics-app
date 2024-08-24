@@ -232,7 +232,7 @@ def get_data():
          .rename(columns={'track_popularity': 'mean_track_popularity'})
          )
     
-    return tracks_data, artists_data, mean_track_popularity_over_time #, tracks_popularity_table
+    return tracks_data, artists_data, mean_track_popularity_over_time , tracks_popularity_table
 
 
 ###########################################################
@@ -263,7 +263,7 @@ def main():
     st.title("🎸 Tracks")
     # get the data
     #Use get_data1() for testing without database, and get_data() for database connection
-    data, artists_data, mean_track_popularity= get_data()
+    data, artists_data, mean_track_popularity, tracks_popularity_table = get_data()
     
     # save the data to pkl to avoid database connection
     #data.to_pickle('data/data.pkl')
