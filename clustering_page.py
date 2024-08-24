@@ -71,16 +71,24 @@ def clustered_data_trend():
     tracks_table = pd.read_csv('data/tracks_table.csv')[['track_id', 'track_name']]
     tracks_clustered = pd.read_csv('data/tracks_clustered.csv')[['track_id', 'cluster']]
     tracks_clustered['cluster'] = tracks_clustered['cluster'].astype(str)
-    tracks_popularity = pd.read_csv('data/tracks_popularity_table.csv')
-    tracks_data = pd.merge(tracks_table, tracks_clustered, on='track_id')
-    tracks_data = pd.merge(tracks_data, tracks_popularity, on='track_id')
-    # group by date and cluster aggregating the mean popularity
-    group = (tracks_data
-             .groupby(['date', 'cluster'])
-             .agg({'track_popularity': 'mean'})
-             .reset_index()
-    )
-    return group              
+    #tracks_popularity = pd.read_csv('data/tracks_popularity_table.csv')
+    try:
+        if 'cached_tracks_popularity_table' not in st.session_state:
+            raise KeyError("cached_tracks_popularity_table not found in session state")
+        tracks_popularity = st.session_state['cached_tracks_popularity_table']
+    
+        tracks_data = pd.merge(tracks_table, tracks_clustered, on='track_id')
+        tracks_data = pd.merge(tracks_data, tracks_popularity, on='track_id')
+        # group by date and cluster aggregating the mean popularity
+        group = (tracks_data
+                .groupby(['date', 'cluster'])
+                .agg({'track_popularity': 'mean'})
+                .reset_index()
+        )
+        return group
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        return None          
              
              
 def cluster_scatter_plot(df, x, y, z):
