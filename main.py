@@ -1,14 +1,9 @@
 import streamlit as st
 import pandas as pd
-#import matplotlib.pyplot as plt
-#import plotly.express as px
 import plotly.graph_objects as go
 import plotly.express as px
 import numpy as np
-# access the functions from the 'streamlit_files' directory
-#import sys
-#sys.path.append('streamlit_files')
-from connect_to_database import update_dynamic_tables
+from connect_to_database import load_from_db
 
 
 
@@ -58,12 +53,16 @@ def load_dynamic_data():
     Returns:
         tuple: A tuple containing the processed tables for tracks popularity, albums popularity, artists popularity, and artists followers.
     """
-    updated_tables = update_dynamic_tables()
-    tracks_popularity_table = process_date(updated_tables['tracks_popularity_table'])
-    albums_popularity_table = process_date(updated_tables['albums_popularity_table'])
-    artists_popularity_table = process_date(updated_tables['artists_popularity_table'])
-    artists_followers_table = process_date(updated_tables['artists_followers_table'])
-    return tracks_popularity_table, albums_popularity_table, artists_popularity_table, artists_followers_table
+    # load data from database
+    tracks_popularity_table = load_from_db('SELECT * FROM tracks_popularity_table;')
+    artists_popularity_table = load_from_db('SELECT * FROM artists_popularity_table;')
+    artists_followers_table = load_from_db('SELECT * FROM artists_followers_table;')
+    
+    # process the date column
+    tracks_popularity_table = process_date(tracks_popularity_table)
+    artists_popularity_table = process_date(artists_popularity_table)
+    artists_followers_table = process_date(artists_followers_table)
+    return tracks_popularity_table, artists_popularity_table, artists_followers_table
 
 
 def merge_tracks_data(tracks_table, albums_table, artists_table, tracks_features_table):
@@ -209,7 +208,7 @@ def get_data():
     artists_table, albums_table, tracks_table, tracks_features_table = load_static_data()
     
     # Load dynamic data
-    tracks_popularity_table, albums_popularity_table, artists_popularity_table, artists_followers_table = load_dynamic_data()
+    tracks_popularity_table, artists_popularity_table, artists_followers_table = load_dynamic_data()
     
     # Merge static data for tracks
     tracks_data = merge_tracks_data(tracks_table, albums_table, artists_table, tracks_features_table)
