@@ -232,7 +232,7 @@ def get_data():
          .rename(columns={'track_popularity': 'mean_track_popularity'})
          )
     
-    return tracks_data, artists_data, mean_track_popularity_over_time
+    return tracks_data, artists_data, mean_track_popularity_over_time, tracks_popularity_table
 
 
 ###########################################################
@@ -248,7 +248,7 @@ def get_data1():
          .reset_index()
          .rename(columns={'track_popularity': 'mean_track_popularity'})
          )
-    return data, artists_data, mean_track_popularity
+    return data, artists_data, mean_track_popularity, tracks_popularity_table
 
 ####################################
 
@@ -263,7 +263,7 @@ def main():
     st.title("🎸 Tracks")
     # get the data
     #Use get_data1() for testing without database, and get_data() for database connection
-    data, artists_data, mean_track_popularity = get_data()
+    data, artists_data, mean_track_popularity, tracks_popularity_table = get_data()
     
     # save the data to pkl to avoid database connection
     #data.to_pickle('data/data.pkl')
@@ -276,6 +276,11 @@ def main():
     # caching data for clustering page
     if 'cached_clustering_data' not in st.session_state:
         st.session_state['cached_clustering_data'] = data[['track_id', 'current_track_popularity']]
+
+    # caching tracks_popularity_table for Clustering page
+    if 'cached_tracks_popularity_table' not in st.session_state:
+        st.session_state['cached_tracks_popularity_table'] = tracks_populartiy_table
+        
     
     st.sidebar.title('Filters')
 
