@@ -386,7 +386,7 @@ def main():
     
     
     # display the table of the most popular tracks
-    st.write(f"#### Top {n} Most Popular Tracks")    
+    st.write(f"##### Top {n} Most Popular Tracks for the Selected Filters")     
     filtered_data = show_tracks_table(filtered_data)
     st.write('''Select the tracks to be displayed in the trend line plot by clicking on the **Chart** column in the table above.''')
 
