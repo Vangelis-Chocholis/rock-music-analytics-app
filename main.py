@@ -278,8 +278,8 @@ def main():
         st.session_state['cached_clustering_data'] = data[['track_id', 'current_track_popularity']]
 
     # caching tracks_popularity_table for Clustering page
-    #if 'cached_tracks_popularity_table' not in st.session_state:
-     #   st.session_state['cached_tracks_popularity_table'] = tracks_populartiy_table
+    if 'cached_tracks_popularity_table' not in st.session_state:
+        st.session_state['cached_tracks_popularity_table'] = tracks_popularity_table
         
     
     st.sidebar.title('Filters')
