@@ -10,7 +10,7 @@ from connect_to_database import load_from_db
 
 
 
-@st.cache_data
+@st.cache_data(ttl="1d")
 def get_clustered_data(file_path):
     """
     Reads a CSV file, processes the data, and merges it with cached clustering data.
@@ -51,7 +51,7 @@ def get_clustered_data(file_path):
 
 
 # mean popularity by cluster
-@st.cache_data
+@st.cache_data(ttl="1d")
 def clustered_data_trend():
     """
     Reads track data, merges them, and calculates the mean popularity of tracks
