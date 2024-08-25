@@ -42,7 +42,7 @@ def process_date(table):
     return table
 
 
-@st.cache_data
+@st.cache_data(ttl="1d")
 def load_dynamic_data():
     """
     Loads and processes dynamic data tables.
@@ -179,7 +179,7 @@ def process_artists_data(data, artists_popularity, artists_followers):
     return data
     
 
-@st.cache_data
+@st.cache_data(ttl="1d")
 def get_data():
     ''' Load, process, and merge static and dynamic music data tables.
 
