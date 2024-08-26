@@ -18,6 +18,7 @@ This page presents popularity and follower trends for legendary rock artists.
 ##### 📊 Clustering Page: 
 ![Alt Text](files/clustering-page.gif)  
 This page displays the results of a clustering analysis, where tracks are grouped based on their audio features. Users can filter tracks by popularity and/or artist to explore the clusters further.
+For more details, please refer to the [Exploratory Data Analysis](https://github.com/Vangelis-Chocholis/rock-music-analytics-app/blob/main/files/EDA.ipynb) and [Clustering Analysis](https://github.com/Vangelis-Chocholis/rock-music-analytics-app/blob/main/files/clustering_notebook.ipynb) Jupyter notebooks.
 
 
 ### 🗃️ Data
