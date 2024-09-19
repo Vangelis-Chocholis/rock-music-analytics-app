@@ -42,7 +42,7 @@ def process_date(table):
     return table
 
 
-@st.cache_data(ttl="1d")
+@st.cache_data(ttl="3d")
 def load_dynamic_data():
     """
     Loads and processes dynamic data tables.
